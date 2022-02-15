@@ -1,13 +1,27 @@
 import { RemixI18Next } from 'remix-i18next';
-import { FetchBackend, FileSystemBackend } from 'remix-i18next';
-import os from 'os';
+import { Backend } from 'remix-i18next';
+import localeEn from '~/locale/en.json';
+import localeNl from '~/locale/nl.json';
 
-const ip = Object.values(os.networkInterfaces()).flat().find(ip => ip?.family == "IPv4" && !ip.internal)!
+class InMemoryBackend implements Backend {
+    constructor(
+        private readonly data: {
+            [locale: string]: {
+                [namespace: string]: {
+                    [key: string]: string;
+                };
+            };
+        }
+    ) {}
 
-// const backend = new FileSystemBackend('./public/locales');
-const backend = new FetchBackend({
-    baseUrl: new URL(`https://${ip.address}:${process.env.PORT ?? 3000}`),
-    pathPattern: '/locales/:locale/:namespace.json',
+    async getTranslations(namespace: string, locale: string) {
+        return this.data[locale][namespace];
+    }
+}
+
+const backend = new InMemoryBackend({
+    en: localeEn,
+    nl: localeNl,
 });
 
 export let i18n = new RemixI18Next(backend, {
