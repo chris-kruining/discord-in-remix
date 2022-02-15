@@ -1,4 +1,4 @@
-export default function Explore()
+export default function Index()
 {
     return <div>Explore</div>;
 }

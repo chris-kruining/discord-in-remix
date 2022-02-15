@@ -1,30 +1,31 @@
-import { Form } from '@remix-run/react';
-import { useTranslation } from 'react-i18next';
+import { Form, Outlet } from '@remix-run/react';
 import { LoaderFunction, useLoaderData } from 'remix';
+import { useTranslation } from 'react-i18next';
 import { i18n } from '~/i18n.server';
-import { auth, sessionStorage } from '~/auth.server.js';
+
 
 type LoaderData = {
     error: { message: string } | null;
-
+    servers: Array<{
+        id: number,
+        name: string,
+        icon: string,
+    }>,
 };
 
 export const loader: LoaderFunction = async ({ request }) =>
 {
-    const user = await auth.isAuthenticated(request, { failureRedirect: '/auth/discord' });
-    const session = await sessionStorage.getSession(request.headers.get('Cookie'));
-
-    console.log(user);
+    // const user = await auth.isAuthenticated(request, { failureRedirect: '/auth/discord' });
+    //
+    // console.log(user);
 
     return {
-        error: session.get(auth.sessionErrorKey),
         i18n: await i18n.getTranslations(request, [ 'common', 'index' ]),
     };
 };
 
 export default function Index()
 {
-    const { error } = useLoaderData<LoaderData>();
     const { t } = useTranslation('index');
 
     return <div>
@@ -35,5 +36,9 @@ export default function Index()
                 />
             </Form>
         </nav>
+
+        <main>
+            <Outlet />
+        </main>
     </div>;
 }
