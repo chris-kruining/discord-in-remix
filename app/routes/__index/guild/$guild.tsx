@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHashtag, faMicrophone, faHeadphones, faCog } from '@fortawesome/free-solid-svg-icons';
 import { Outlet, useLoaderData } from '@remix-run/react';
-import { Link, LoaderFunction } from 'remix';
+import { NavLink, LoaderFunction } from 'remix';
 
 type LoaderData = {
     name: string,
@@ -18,6 +18,8 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ params }) =>
 {
+    await new Promise(res => setTimeout(res, 500));
+
     return {
         name: params.guild,
         categories: [
@@ -36,9 +38,9 @@ export const loader: LoaderFunction = async ({ params }) =>
                 name: 'Topics',
                 open: true,
                 channels: [
-                    { id: 0, name: 'accessibility' },
-                    { id: 1, name: 'react-router' },
-                    { id: 2, name: 'typescript' },
+                    { id: 3, name: 'accessibility' },
+                    { id: 4, name: 'react-router' },
+                    { id: 5, name: 'typescript' },
                 ],
             },
         ],
@@ -61,11 +63,11 @@ export default function Guild()
                 <summary>{c.name}</summary>
 
                 <section>
-                    {c.channels.map(c => <Link to={`/${name}/${c.id}`} key={c.id}>
+                    {c.channels.map(c => <NavLink to={`/guild/${name}/${c.id}`} key={c.id}>
                         <FontAwesomeIcon icon={faHashtag} />
 
                         {c.name}
-                    </Link>)}
+                    </NavLink>)}
                 </section>
             </details>)}
         </nav>
