@@ -27,41 +27,72 @@ nav.main {
 
 nav.main hr {
     inline-size: 75%;
+    block-size: .25em;
+    border-radius: .25em;
 }
 
-nav .main__item {
+nav.main .main__item {
+    position: relative;
     display: grid;
 }
 
-nav .main__item > span {
+nav.main .main__item::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 50%;
+    block-size: 50%;
+    inline-size: .5em;
+    border-radius: .5em;
+    background-color: hsla(0deg 0% 0% / .2);
+    transform: translate(-1em, -50%);
+    transition: transform .3s ease-in-out;
+}
+
+nav.main .main__item > span {
     display: grid;
     align-content: center;
     justify-content: center;
     inline-size: calc(3em / .75);
     block-size: calc(3em / .75);
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: calc(3em / .75 / 2);
     background-color: hsla(0deg 0% 0% / .2);
     font-size: .75em;
     overflow: hidden;
+    transition: border-radius .25s ease-in-out;
 }
 
-nav .main__item > span > :is(img, svg) {
+nav.main .main__item > span > :is(img, svg) {
     inline-size: calc(3em / .75);
     block-size: calc(3em / .75);
     object-fit: cover;
 }
 
-nav .main__item > span > svg {
+nav.main .main__item > span > svg {
     inline-size: calc(2em / .75);
     block-size: calc(2em / .75);
     padding: .5em;
     color: green;
 }
 
-nav .main__item .home {
+nav.main .main__item .home {
     color: hsl(0deg 0% 50%);
 }
+
+nav.main .main__item:is(:hover, .active)::before {
+    transform: translate(-.75em, -50%);
+}
+
+nav.main .main__item:is(:hover, .active) > span {
+    border-radius: 1.5em;
+}
+
+nav.main .main__item.active::before {
+    block-size: 100%;
+}
+
+
 
 body > main {
     display: grid;
