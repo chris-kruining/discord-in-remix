@@ -16,7 +16,8 @@ type LoaderData = {
     }>,
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) =>
+{
     return {
         name: params.guild,
         categories: [
@@ -41,7 +42,7 @@ export const loader: LoaderFunction = async ({ params }) => {
                 ],
             },
         ],
-    } as LoaderData
+    } as LoaderData;
 };
 
 export default function Guild()
@@ -50,7 +51,7 @@ export default function Guild()
 
     return <div className="guild">
         <header>
-            <h1>{ name }</h1>
+            <h1>{name}</h1>
 
             <button><FontAwesomeIcon icon={faEllipsisV} /></button>
         </header>
@@ -82,5 +83,5 @@ export default function Guild()
 
             <button><FontAwesomeIcon icon={faCog} /></button>
         </footer>
-    </div>
+    </div>;
 }

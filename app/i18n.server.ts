@@ -3,7 +3,8 @@ import { Backend } from 'remix-i18next';
 import localeEn from '~/locale/en.json';
 import localeNl from '~/locale/nl.json';
 
-class InMemoryBackend implements Backend {
+class InMemoryBackend implements Backend
+{
     constructor(
         private readonly data: {
             [locale: string]: {
@@ -11,10 +12,13 @@ class InMemoryBackend implements Backend {
                     [key: string]: string;
                 };
             };
-        }
-    ) {}
+        },
+    )
+    {
+    }
 
-    async getTranslations(namespace: string, locale: string) {
+    async getTranslations(namespace: string, locale: string)
+    {
         return this.data[locale][namespace];
     }
 }
