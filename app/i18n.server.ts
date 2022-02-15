@@ -6,7 +6,7 @@ const ip = Object.values(os.networkInterfaces()).flat().find(ip => ip?.family ==
 
 // const backend = new FileSystemBackend('./public/locales');
 const backend = new FetchBackend({
-    baseUrl: new URL(`http://${ip.address}:${process.env.PORT ?? 3000}`),
+    baseUrl: new URL(`https://${ip.address}:${process.env.PORT ?? 3000}`),
     pathPattern: '/locales/:locale/:namespace.json',
 });
 
