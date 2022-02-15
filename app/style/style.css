@@ -93,14 +93,12 @@ nav.main .main__item.active::before {
 }
 
 
-
 body > main {
     display: grid;
     grid: 100% / 100%;
     border-top-left-radius: 1em;
     background-color: hsla(0deg 0% 0% / .1);
 }
-
 
 
 .guild {

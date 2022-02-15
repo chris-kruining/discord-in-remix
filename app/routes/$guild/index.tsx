@@ -1,6 +1,4 @@
-
-
 export default function Index()
 {
-    return <>INDEX</>
+    return <>INDEX</>;
 }
