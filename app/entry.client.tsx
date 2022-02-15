@@ -13,7 +13,7 @@ await i18next.use(initReactI18next).init({
 
 hydrate(
     <RemixI18NextProvider i18n={ i18next }>
-        <RemixBrowser/>
+        <RemixBrowser />
     </RemixI18NextProvider>,
     document
 );

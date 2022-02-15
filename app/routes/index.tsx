@@ -16,7 +16,7 @@ export default function Index() {
         <nav>
             <Form>
                 <input
-                    placeholder={t('search')}
+                    placeholder={ t('search') }
                 />
             </Form>
         </nav>

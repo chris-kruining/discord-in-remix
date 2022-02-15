@@ -20,7 +20,7 @@ export default async function handleRequest(
 
     const markup = renderToString(
         <RemixI18NextProvider i18n={ i18next }>
-            <RemixServer context={ remixContext } url={ request.url }/>
+            <RemixServer context={ remixContext } url={ request.url } />
         </RemixI18NextProvider>
     );
 

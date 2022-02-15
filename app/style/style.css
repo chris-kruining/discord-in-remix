@@ -1,0 +1,126 @@
+:root {
+
+}
+
+html {
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+body {
+    display: grid;
+    grid: 100% / auto minmax(0, 1fr);
+    grid-template-areas: 'nav content';
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+}
+
+nav.main {
+    grid-area: nav;
+    display: grid;
+    grid-auto-flow: row;
+    align-content: start;
+    gap: .5em;
+    padding: .5em;
+}
+
+nav.main hr {
+    inline-size: 75%;
+}
+
+nav .main__item {
+    display: grid;
+}
+
+nav .main__item > span {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    inline-size: calc(3em / .75);
+    block-size: calc(3em / .75);
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: hsla(0deg 0% 0% / .2);
+    font-size: .75em;
+    overflow: hidden;
+}
+
+nav .main__item > span > :is(img, svg) {
+    inline-size: calc(3em / .75);
+    block-size: calc(3em / .75);
+    object-fit: cover;
+}
+
+nav .main__item > span > svg {
+    inline-size: calc(2em / .75);
+    block-size: calc(2em / .75);
+    padding: .5em;
+    color: green;
+}
+
+nav .main__item .home {
+    color: hsl(0deg 0% 50%);
+}
+
+body > main {
+    display: grid;
+    grid: 100% / 100%;
+    border-top-left-radius: 1em;
+    background-color: hsla(0deg 0% 0% / .1);
+}
+
+
+
+.guild {
+    display: grid;
+    grid: auto minmax(0, 1fr) auto / auto minmax(0, 1fr);
+    grid-template-areas: 'header main' 'nav main' 'footer main';
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: clip;
+}
+
+.guild > header {
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.guild > header > h1 {
+    margin: 0;
+}
+
+.guild > nav {
+    grid-area: nav;
+    display: grid;
+    align-content: start;
+    gap: 1em;
+}
+
+.guild > nav section {
+    display: grid;
+    gap: .5em;
+    padding-inline-start: 1em;
+    padding-block: .5em;
+}
+
+.guild > nav section a {
+    display: grid;
+    grid-auto-flow: column;
+    gap: .25em;
+    justify-content: start;
+    align-items: center;
+}
+
+.guild > main {
+    grid-area: main;
+    display: grid;
+    grid: 100% / 100%;
+}
+
+.channel {
+    inline-size: 100%;
+    block-size: 100%;
+    overflow-y: auto;
+}
