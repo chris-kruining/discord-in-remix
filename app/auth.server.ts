@@ -90,5 +90,9 @@ auth.use(new DiscordStrategy<DiscordProfile>(
         clientSecret: process.env.DISCORD_CLIENT_SECRET!,
         callbackUrl: 'http://localhost:3000/auth/redirect',
     },
-    async (args) => args as unknown as DiscordProfile,
+    async (args) => {
+        console.log(args);
+
+        return args as unknown as DiscordProfile;
+    },
 ));
