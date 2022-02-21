@@ -92,7 +92,7 @@ auth.use(new DiscordStrategy<AuthUser>(
         domain: 'discord.com/api',
         clientId: process.env.DISCORD_CLIENT_ID!,
         clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-        callbackUrl: 'http://localhost:3000/auth/redirect',
+        callbackUrl: `${process.env.DISCORD_CLIENT_REDIRECT_URL}/auth/redirect`,
         scopes: [
             'identify',
             'guilds',
