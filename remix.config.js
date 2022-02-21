@@ -6,5 +6,6 @@ module.exports = {
     assetsBuildDirectory: 'public/build',
     publicPath: '/build/',
     serverBuildDirectory: 'api/_build',
+    serverBuildTarget: 'vercel',
     ignoredRouteFiles: [ '.*' ],
 };

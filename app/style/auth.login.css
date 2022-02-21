@@ -1,0 +1,31 @@
+.login {
+    grid-column: span 2;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    background-color: #202225;
+    color: #fff;
+    gap: 5em;
+}
+
+.login dialog {
+    position: static;
+    background-color: #fff1;
+    color: #ED4245FF;
+    border-color: #ED4245FF;
+    border-radius: .5em;
+}
+
+.login dialog a {
+    color: inherit;
+}
+
+.login .submit{
+    background-color: #5865f2;
+    padding: 1em 2em;
+    color: #fff;
+    border: none;
+    border-radius: .5em;
+}

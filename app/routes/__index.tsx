@@ -1,9 +1,14 @@
+import { User } from 'discord.js';
 import { Outlet, LoaderFunction, useLoaderData, useTransition } from 'remix';
+import { auth } from '~/auth.server';
 import { Menu } from '~/component/menu';
 import { i18n } from '~/i18n.server';
+import { getGuilds, Guild } from '~/service/discord.server';
 
 type LoaderData = {
     error: { message: string } | null;
+    user: User,
+    guilds: Guild[],
     servers: Array<{
         id: number,
         name: string,
@@ -13,49 +18,23 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) =>
 {
-    // const user = await auth.isAuthenticated(request, { failureRedirect: '/auth/discord' });
-    //
-    // console.log(user);
+    const user = await auth.isAuthenticated(request, { failureRedirect: '/auth/login' });
 
     return {
-        servers: [
-            {
-                id: 0,
-                name: 'remix',
-                icon: 'https://images.unsplash.com/photo-1547989453-11e67ffb3885?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-            },
-            { id: 1, name: 'W.@.v.e' },
-            {
-                id: 2,
-                name: 'Casa di papi',
-                icon: 'https://images.unsplash.com/photo-1547989453-11e67ffb3885?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-            },
-            {
-                id: 3,
-                name: 'Corpse corp',
-                icon: 'https://images.unsplash.com/photo-1547989453-11e67ffb3885?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-            },
-            {
-                id: 4,
-                name: 'fun and games',
-                icon: 'https://images.unsplash.com/photo-1547989453-11e67ffb3885?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-            },
-            {
-                id: 5,
-                name: 'campzone',
-                icon: 'https://images.unsplash.com/photo-1547989453-11e67ffb3885?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-            },
-        ],
+        user,
+        guilds: await getGuilds(user),
         i18n: await i18n.getTranslations(request, [ 'common', 'index' ]),
     };
 };
 
 export default function Index()
 {
-    const { servers } = useLoaderData<LoaderData>();
+    const { guilds, user } = useLoaderData<LoaderData>();
+
+    // https://cdn.discordapp.com/icons/921778276945502260/25536e8d918af7811927b5e9ff216176.webp?size=96
 
     return <>
-        <Menu servers={servers} />
+        <Menu guilds={guilds} />
         <main>
             <Outlet />
         </main>

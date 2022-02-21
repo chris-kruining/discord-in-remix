@@ -2,6 +2,11 @@ import { createCookieSessionStorage } from 'remix';
 import { Authenticator, StrategyVerifyCallback  } from 'remix-auth';
 import { OAuth2Profile, OAuth2StrategyVerifyParams, OAuth2Strategy } from 'remix-auth-oauth2';
 import { User } from 'discord.js';
+import { config } from 'dotenv';
+import { Use } from 'trough';
+
+// Load info from `.env` file
+config();
 
 export const sessionStorage = createCookieSessionStorage({
     cookie: {
@@ -72,27 +77,32 @@ class DiscordStrategy<TUser> extends OAuth2Strategy<TUser, DiscordProfile, Disco
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        let data: User = await response.json();
+        let data: DiscordProfile = await response.json();
 
-        return {
-            ...data,
-            provider: 'discord',
-        } as DiscordProfile;
+        return { ...data } as DiscordProfile;
     }
 }
 
-export const auth = new Authenticator<{}>(sessionStorage);
+export type AuthUser = User & { token: string };
 
-auth.use(new DiscordStrategy<DiscordProfile>(
+export const auth = new Authenticator<AuthUser>(sessionStorage);
+
+auth.use(new DiscordStrategy<AuthUser>(
     {
         domain: 'discord.com/api',
         clientId: process.env.DISCORD_CLIENT_ID!,
         clientSecret: process.env.DISCORD_CLIENT_SECRET!,
         callbackUrl: 'http://localhost:3000/auth/redirect',
+        scopes: [
+            'identify',
+            'guilds',
+            'guilds.join',
+            'guilds.members.read',
+            'messages.read',
+            'gdm.join',
+        ],
     },
-    async (args) => {
-        console.log(args);
-
-        return args as unknown as DiscordProfile;
+    async (args: OAuth2StrategyVerifyParams<DiscordProfile, DiscordExtraParams>) => {
+        return { ...args.profile, token: args.accessToken } as unknown as AuthUser;
     },
 ));
