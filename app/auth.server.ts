@@ -100,6 +100,7 @@ auth.use(new DiscordStrategy<AuthUser>(
             'guilds.members.read',
             'messages.read',
             'gdm.join',
+            'rpc',
         ],
     },
     async (args: OAuth2StrategyVerifyParams<DiscordProfile, DiscordExtraParams>) => {

@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faHashtag, faMicrophone, faHeadphones, faCog } from '@fortawesome/free-solid-svg-icons';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { NavLink, LoaderFunction } from 'remix';
+import { auth } from '~/auth.server';
+import { getGuild } from '~/service/discord.server';
 
 type LoaderData = {
     name: string,
@@ -16,8 +18,11 @@ type LoaderData = {
     }>,
 };
 
-export const loader: LoaderFunction = async ({ params }) =>
+export const loader: LoaderFunction = async ({ request, params }) =>
 {
+    const user = await auth.isAuthenticated(request, { failureRedirect: '/auth/login' });
+    const guild = await getGuild(user, params.guild ?? '');
+
     await new Promise(res => setTimeout(res, 500));
 
     return {

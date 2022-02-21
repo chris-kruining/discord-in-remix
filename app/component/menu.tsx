@@ -14,7 +14,7 @@ export function Menu({ guilds }: MenuProps)
     return <nav className="main">
         <Item to="/"><FontAwesomeIcon className="home" icon={faDiscord} /></Item>
         <hr />
-        {guilds.map(guild => <Item key={guild.id} to={`/guild/${guild.name.replace(/ +/g, '-')}`}>{guild.icon
+        {guilds.map(guild => <Item key={guild.id} to={`/guild/${guild.id}`}>{guild.icon
             ? <img src={`${guild.icon}?size=96`} />
             : guild.name}</Item>)}
         <Item to="/guild/new"><FontAwesomeIcon icon={faPlus} /></Item>
