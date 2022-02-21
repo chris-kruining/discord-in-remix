@@ -1,25 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCompass } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { IntrinsicElements, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { NavLink } from 'remix';
-
-type Server = {
-    id: number,
-    name: string,
-    icon?: string,
-};
+import { Guild } from '~/service/discord.server';
 
 export type MenuProps = {
-    servers: any[],
+    guilds: Guild[],
 };
 
-export function Menu({ servers }: MenuProps) {
+export function Menu({ guilds }: MenuProps)
+{
     return <nav className="main">
         <Item to="/"><FontAwesomeIcon className="home" icon={faDiscord} /></Item>
         <hr />
-        { servers.map(server => <Item key={ server.id } to={`/${server.name.replace(/ +/g, '-')}`}>{server.icon ? <img src={server.icon} /> : server.name}</Item>) }
-        <Item to="/server/new"><FontAwesomeIcon icon={faPlus} /></Item>
+        {guilds.map(guild => <Item key={guild.id} to={`/guild/${guild.name.replace(/ +/g, '-')}`}>{guild.icon
+            ? <img src={`${guild.icon}?size=96`} />
+            : guild.name}</Item>)}
+        <Item to="/guild/new"><FontAwesomeIcon icon={faPlus} /></Item>
         <Item to="/explore"><FontAwesomeIcon icon={faCompass} /></Item>
         <Item to="https://github.com/chris-kruining/discord-in-remix"><FontAwesomeIcon icon={faGithub} /></Item>
     </nav>;

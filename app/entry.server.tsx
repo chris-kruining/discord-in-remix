@@ -9,8 +9,9 @@ export default async function handleRequest(
     request: Request,
     responseStatusCode: number,
     responseHeaders: Headers,
-    remixContext: EntryContext
-) {
+    remixContext: EntryContext,
+)
+{
     await i18next.use(initReactI18next).init({
         supportedLngs: [ 'en', 'nl' ],
         defaultNS: 'common',
@@ -19,15 +20,15 @@ export default async function handleRequest(
     });
 
     const markup = renderToString(
-        <RemixI18NextProvider i18n={ i18next }>
-            <RemixServer context={ remixContext } url={ request.url } />
-        </RemixI18NextProvider>
+        <RemixI18NextProvider i18n={i18next}>
+            <RemixServer context={remixContext} url={request.url} />
+        </RemixI18NextProvider>,
     );
 
     responseHeaders.set('Content-Type', 'text/html');
 
     return new Response('<!DOCTYPE html>' + markup, {
         status: responseStatusCode,
-        headers: responseHeaders
+        headers: responseHeaders,
     });
 }

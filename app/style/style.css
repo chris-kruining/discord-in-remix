@@ -46,7 +46,6 @@ nav.main .main__item::before {
     border-radius: .5em;
     background-color: hsla(0deg 0% 0% / .2);
     transform: translate(-1em, -50%);
-    transition: transform .3s ease-in-out;
 }
 
 nav.main .main__item > span {
@@ -60,7 +59,6 @@ nav.main .main__item > span {
     background-color: hsla(0deg 0% 0% / .2);
     font-size: .75em;
     overflow: hidden;
-    transition: border-radius .25s ease-in-out;
 }
 
 nav.main .main__item > span > :is(img, svg) {
@@ -84,8 +82,16 @@ nav.main .main__item:is(:hover, .active)::before {
     transform: translate(-.75em, -50%);
 }
 
+nav.main .main__item:hover::before {
+    transition: transform .3s ease-in-out;
+}
+
 nav.main .main__item:is(:hover, .active) > span {
     border-radius: 1.5em;
+}
+
+nav.main .main__item:hover > span {
+    transition: border-radius .25s ease-in-out;
 }
 
 nav.main .main__item.active::before {
@@ -99,6 +105,12 @@ body > main {
     grid: 100% / 100%;
     border-top-left-radius: 1em;
     background-color: hsla(0deg 0% 0% / .1);
+    transition: opacity .2s ease-out .3s, transform .2s ease-out .2s;
+}
+
+body.loading > main {
+    transform: translateX(2.5em);
+    opacity: 0;
 }
 
 
@@ -127,6 +139,8 @@ body > main {
     display: grid;
     align-content: start;
     gap: 1em;
+    padding: .5em;
+    inline-size: 10em;
 }
 
 .guild > nav section {
@@ -142,6 +156,12 @@ body > main {
     gap: .25em;
     justify-content: start;
     align-items: center;
+    border-radius: .25em;
+    padding: .25em;
+}
+
+.guild > nav section a:is(:hover, .active) {
+    background-color: #0001;
 }
 
 .guild > main {
@@ -150,8 +170,41 @@ body > main {
     grid: 100% / 100%;
 }
 
+
+
 .channel {
+    display: grid;
+    grid: auto minmax(0, 1fr) auto / 1fr auto;
+    grid-template-areas:
+        'header header'
+        'main aside'
+        'footer aside'
+    ;
+}
+
+.channel > header {
+    grid-area: header;
+}
+
+.channel > main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column-reverse;
     inline-size: 100%;
     block-size: 100%;
     overflow-y: auto;
+    gap: 1em;
+}
+
+.channel > main .message > p {
+    margin: 0;
+}
+
+.channel > aside {
+    grid-area: aside;
+    inline-size: 10em;
+}
+
+.channel > footer {
+    grid-area: footer;
 }
