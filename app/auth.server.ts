@@ -3,7 +3,6 @@ import { Authenticator, StrategyVerifyCallback  } from 'remix-auth';
 import { OAuth2Profile, OAuth2StrategyVerifyParams, OAuth2Strategy } from 'remix-auth-oauth2';
 import { User } from 'discord.js';
 import { config } from 'dotenv';
-import { Use } from 'trough';
 
 // Load info from `.env` file
 config();
