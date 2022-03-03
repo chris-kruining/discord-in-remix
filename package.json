@@ -27,7 +27,7 @@
     "remix": "1.2.3",
     "remix-auth": "3.2.1",
     "remix-auth-oauth2": "1.2.0",
-    "remix-i18next": "2.3.0"
+    "remix-i18next": "3.0.0"
   },
   "devDependencies": {
     "@remix-run/dev": "1.2.3",
